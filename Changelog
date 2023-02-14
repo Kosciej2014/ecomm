@@ -1,4 +1,9 @@
-Version [0.1.4]
+Version [0.1.5]
+
+[0.1.5]
+-add folder "item"
+- change view selling item in html
+- adding new views point
 
 [0.1.4]
 - fix problem Tailwind
