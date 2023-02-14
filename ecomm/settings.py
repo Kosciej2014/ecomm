@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'WebShop.apps.WebshopConfig',
-    'compressor',  #new
 ]
 
 MIDDLEWARE = [
@@ -119,9 +118,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-COMPRESS_ROOT = BASE_DIR / 'static'         #new
-COMPRESS_ENABLED = True         #new
-STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)  #new
 MEDIA_URL = 'media/'        #new
 MEDIA_ROOT = BASE_DIR / 'media'  #new
 
