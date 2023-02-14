@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Item, Category
+
 
 def index(request):
     items = Item.objects.filter(is_sold=False)[0:6]
