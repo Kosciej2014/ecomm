@@ -1,4 +1,13 @@
-Version [0.1.5]
+Version [0.2.5]
+
+[0.2.5]
+- add method to Sign up
+- change urls
+- change folder items
+- adding new endpoint's
+- upgrade code
+- upgrade and add html code
+
 
 [0.1.5]
 -add folder "item"
