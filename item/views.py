@@ -1,7 +1,29 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from WebShop.models import Item
+from django.db.models import Q
+from WebShop.models import Item , Category
 from django.contrib.auth.decorators import login_required
-from .forms import NewItemFrom
+from .forms import NewItemFrom, EditItemFrom
+
+
+def items(request):
+    query = request.GET.get('query', '')
+    category_id = request.GET.get('category_id', 0)
+    categories = Category.objects.all()
+    item = Item.objects.filter(is_sold=False)
+
+    if category_id:
+        items = items.filter(category_id=category_id)
+
+    if query:
+        items = items.filter(Q(name_icontains=query) | Q(description_icontains=query))
+
+    return render(request, 'core/items.html', {
+        'items': item,
+        'query': query,
+        'categories': categories,
+        'category_id': int(category_id),
+    })
+
 
 def detail(request, pk):
     item = get_object_or_404(Item, pk=pk)
@@ -29,4 +51,31 @@ def new(request):
     return render(request, 'core/form.html', {
         'form': form,
         'title': 'New item',
+    })
+
+@login_required()
+def delete(request, pk):
+    item = get_object_or_404(Item, pk=pk, created_by=request.user)
+    item.delete()
+
+    return  redirect('dashboard:index')
+
+
+@login_required()
+def edit(request, pk):
+    item = get_object_or_404(Item, pk=pk, created_by=request.user)
+
+    if request.method == 'POST':
+        form = EditItemFrom(request.POST, request.FILES, instance=item)
+
+        if form.is_valid():
+            form.save()
+
+            return redirect('item:detail', pk=item.id)
+    else:
+        form = EditItemFrom(instance=item)
+
+    return render(request, 'core/form.html', {
+        'from': form,
+        'title': 'Edit item',
     })

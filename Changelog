@@ -1,4 +1,7 @@
-Version [0.2.5]
+Version [0.2.6]
+
+[0.2.6]
+-upgrade html
 
 [0.2.5]
 - add method to Sign up
